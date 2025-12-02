@@ -28,6 +28,7 @@ model Employee {
   password  String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  visits    Visit[]
 
   @@map("funcionarios")
 }
@@ -45,6 +46,7 @@ model Property {
   status      PropertyStatus @default(AVAILABLE)
   createdAt   DateTime       @default(now()) @map("created_at")
   updatedAt   DateTime       @updatedAt @map("updated_at")
+  visits      Visit[]
 
   @@map("imoveis")
 }
@@ -57,6 +59,24 @@ model Client {
   preferences String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
+  visits      Visit[]
 
   @@map("clientes")
+}
+
+model Visit {
+  id         String   @id @default(uuid())
+  clientId   String   @map("client_id")
+  propertyId String   @map("property_id")
+  employeeId String?  @map("employee_id")
+  visitDate  DateTime @map("visit_date")
+  notes      String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  client   Client    @relation(fields: [clientId], references: [id])
+  property Property  @relation(fields: [propertyId], references: [id])
+  employee Employee? @relation(fields: [employeeId], references: [id])
+
+  @@map("visitas")
 }

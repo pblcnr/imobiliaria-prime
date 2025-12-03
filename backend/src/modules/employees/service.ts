@@ -1,10 +1,10 @@
-import { prisma } from "../../../config/prisma.js";
+import { prisma } from "../../config/prisma.js";
 import bcrypt from "bcryptjs";
-import { ConflictError, NotFoundError } from "../../../shared/errors/index.js";
+import { ConflictError, NotFoundError } from "../../shared/errors/index.js";
 import type {
   CreateEmployeeDto,
   UpdateEmployeeDto,
-} from "../dtos/employee.dto.js";
+} from "./dtos/employee.dto.js";
 
 export class EmployeeService {
   async createEmployee(data: CreateEmployeeDto) {
